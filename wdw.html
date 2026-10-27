@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WDW Creative Studio – Nabil Nassor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="project.css">
+<style>html{background:#f4f2ec}body::after{content:"";position:fixed;inset:0;background:#f4f2ec;z-index:300;pointer-events:none;opacity:1}html:not(.ready) body::after{animation:veil .9s ease 2.4s forwards}html.ready body::after{opacity:0;visibility:hidden;transition:opacity .9s cubic-bezier(.33,1,.68,1),visibility 0s linear .9s}html.js:not(.ready) body *{animation-play-state:paused!important}@keyframes veil{to{opacity:0;visibility:hidden}}@media (prefers-reduced-motion:reduce){body::after{display:none}}</style>
+<style>
+/* studio logo: wipes in on arrival, then drifts and shrinks a little as you scroll */
+.wdw-logo{display:grid;place-items:center;padding-block:clamp(48px,9vw,140px) clamp(32px,6vw,90px)}
+.wdw-logo-in{width:min(78vw,620px);transform:translate3d(0,calc(var(--lp,0)*-40px),0) scale(calc(1 - var(--lp,0)*.08));will-change:transform}
+.wdw-logo img{display:block;width:100%;height:auto}
+.js .wdw-logo img{clip-path:inset(0 0 100% 0);transform:translateY(24px);opacity:0;transition:clip-path 1.5s var(--ease) .35s,transform 1.5s var(--ease) .35s,opacity .8s ease .35s}
+.js.ready .wdw-logo img{clip-path:inset(0 0 0 0);transform:none;opacity:1}
+
+/* skill and tool chips */
+.wdw-chips{grid-column:5/13;display:flex;flex-wrap:wrap;gap:10px;list-style:none;margin:0;padding:0}
+.wdw-chips li{border:1px solid var(--line);border-radius:999px;padding:.45em 1em;font-size:.95rem;background:rgba(255,255,255,.35)}
+.wdw-chips.tools li{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+@media (max-width:820px){.wdw-chips{grid-column:1/-1}}
+
+/* collage of studio projects: framed photos, tape, stickers and typed notes on kraft paper */
+.wg-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;padding-top:clamp(40px,6vw,90px);padding-bottom:clamp(20px,3vw,36px)}
+.wg-head h2{margin:0;font-weight:500;font-size:clamp(1.5rem,3vw,2.6rem);letter-spacing:-.04em;line-height:1}
+.wg-head p{margin:0;color:var(--mute);max-width:30em}
+.collage{position:relative;display:grid;grid-template-columns:repeat(12,1fr);column-gap:2%;padding:clamp(28px,4.5vw,72px) clamp(16px,3.5vw,56px) clamp(24px,3vw,48px);border-radius:20px;background:#cdbfa4 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .28 0 0 0 0 .18 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:240px;overflow:hidden;--tw:var(--sans)}
+.cl{position:relative;grid-column:1/-1}
+.cl-stage{position:relative;aspect-ratio:var(--ar)}
+.cl-leo{grid-column:1/8;grid-row:1}.cl-har{grid-column:6/13;grid-row:1;margin-top:2%}.cl-bis{grid-column:1/13;grid-row:2;margin-top:-15%}.cl-way{grid-column:1/7;grid-row:3;margin-top:-13%}.cl-sto{grid-column:6/13;grid-row:3;margin-top:-9%}
+.ani{--e:1;--par:0px;transform:translate3d(calc((1 - var(--e))*var(--dx,0px)),calc((1 - var(--e))*var(--dy,140px) + var(--par)),0) rotate(calc(var(--r,0deg) + (1 - var(--e))*var(--dr,8deg))) scale(calc(1 + (1 - var(--e))*.06));opacity:clamp(0,calc(var(--e)*1.6),1);will-change:transform}
+.js .ani{--e:0}
+.pc{position:absolute;left:var(--x);top:var(--y);width:var(--w);margin:0;z-index:var(--z,1)}
+.fr{background:#fbf9f3;padding:7px 7px 0;box-shadow:0 1px 2px rgba(40,30,15,.18),0 18px 30px -16px rgba(40,30,15,.45)}
+.fr img{display:block;width:100%;height:auto}
+.fr .cap{display:block;font-family:var(--tw);font-size:clamp(.66rem,.85vw,.8rem);color:#4a4337;padding:7px 2px 8px;line-height:1.2}
+.pc::before{content:"";position:absolute;z-index:3;top:-11px;left:calc(50% - 15%);width:30%;height:24px;background:rgba(238,228,203,.82);box-shadow:0 1px 2px rgba(40,30,15,.15);transform:rotate(var(--tr,-3deg))}
+.pc.t-corner::before{left:-14px;top:6px;width:64px;transform:rotate(-38deg)}
+.pc.t-blue::before{background:rgba(120,160,215,.75)}
+.pc.cut .fr{background:none;padding:0;box-shadow:none}
+.pc.cut img{filter:drop-shadow(3px 0 0 #fff) drop-shadow(-3px 0 0 #fff) drop-shadow(0 3px 0 #fff) drop-shadow(0 -3px 0 #fff) drop-shadow(0 18px 20px rgba(40,30,15,.35))}
+.pc.cut::before{display:none}
+.stk{position:absolute;left:var(--x);top:var(--y);z-index:6;margin:0;font-weight:600;text-transform:uppercase;letter-spacing:-.03em;line-height:.9;font-size:clamp(1.1rem,2.7vw,2.6rem);padding:.18em .32em .12em;background:var(--bg,#d23b2c);color:var(--fg,#fbf6ea);box-shadow:0 10px 18px -10px rgba(40,30,15,.5);white-space:nowrap}
+.note{position:absolute;left:var(--x);top:var(--y);width:var(--w);z-index:7;filter:drop-shadow(0 10px 14px rgba(40,30,15,.28))}
+.note .nt{margin:0;font-family:var(--tw);font-size:clamp(.82rem,1vw,.98rem);line-height:1.45;color:#2d2923;padding:16px 18px 20px;background:#f7f1e2 repeating-linear-gradient(transparent 0 23px,rgba(70,110,170,.18) 23px 24px);clip-path:polygon(0 3%,4% 0,9% 2%,15% 0,22% 2%,30% 0,38% 1.5%,46% 0,55% 2%,63% 0,71% 1.5%,80% 0,88% 2%,95% 0,100% 2%,99% 30%,100% 60%,99% 100%,92% 98%,84% 100%,75% 97.5%,66% 100%,57% 98%,48% 100%,39% 97.5%,30% 100%,21% 98%,12% 100%,5% 98%,0 100%,1% 60%)}
+.note .nt b{font-weight:400;background:#f3d65a;padding:0 .2em}
+.scrap{position:absolute;left:var(--x);top:var(--y);width:var(--w);height:var(--h);z-index:0;background:#efe7d4 repeating-linear-gradient(transparent 0 19px,rgba(200,80,70,.22) 19px 20px);transform:rotate(var(--r,0deg));box-shadow:0 8px 16px -10px rgba(40,30,15,.4)}
+.scrap.dark{background:#2b2a27}
+.scrap.blue{background:#3a62c4}
+@media (hover:hover) and (pointer:fine){.pc .fr{transition:transform .5s var(--ease)}.pc:hover .fr{transform:scale(1.025)}}
+@media (max-width:820px){
+  .collage{column-gap:0;padding:28px 14px 8px}
+  .cl,.cl-leo,.cl-har,.cl-bis,.cl-way,.cl-sto{grid-column:1/-1;grid-row:auto;margin-top:0}
+  .cl+.cl{margin-top:-20%}
+  .cl{z-index:1}.cl-leo{z-index:2}.cl-har{z-index:0;margin-top:-40%!important}.cl-bis{margin-top:-32%!important;z-index:3}.cl-way{margin-top:-30%!important;z-index:4}.cl-sto{margin-top:-46%!important;z-index:5}
+  .cl-stage{aspect-ratio:var(--arm,var(--ar))}
+  .note{position:relative;left:auto;top:auto;width:86%;margin:-6px 0 0 7%}
+  .pc,.stk,.scrap{left:var(--xm,var(--x));top:var(--ym,var(--y))}.pc,.scrap{width:var(--wm,var(--w))}
+  .fr{padding:4px 4px 0}.fr .cap{padding:5px 1px 6px}
+  .pc::before{height:16px;top:-8px}
+}
+@media (prefers-reduced-motion:reduce){.js .ani{--e:1}.ani{--par:0px!important}.js .wdw-logo img{clip-path:none;transform:none;opacity:1}.wdw-logo-in{transform:none}}
+</style>
+<script>document.documentElement.classList.add('js');try{history.scrollRestoration='manual'}catch(e){}try{var t=localStorage.getItem('theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top g">
+  <a class="roll" id="roll" href="index.html" aria-label="Nabil Nassor, UX and graphic designer. Home"><span class="roll-in" aria-hidden="true"><span>Nabil Nassor</span><span>UX &amp; graphic designer</span><span>Nabil Nassor</span></span></a>
+  <nav aria-label="Primary"><a href="work.html">Work</a><a href="about.html">About</a></nav>
+</header>
+
+<main id="main">
+  <div class="marq long">
+    <div class="mq-track" id="mq">
+      <div class="mq-half">
+        <h1 class="mq-item" id="t">WDW CREATIVE STUDIO</h1>
+        <span class="mq-item" aria-hidden="true">WDW CREATIVE STUDIO</span>
+      </div>
+      <div class="mq-half" aria-hidden="true">
+        <span class="mq-item">WDW CREATIVE STUDIO</span>
+        <span class="mq-item">WDW CREATIVE STUDIO</span>
+      </div>
+    </div>
+  </div>
+
+  <section class="g" aria-label="Project details">
+    <dl class="meta-grid">
+      <div><dt>Studio</dt><dd>WDW Creative Studio, Stockholm</dd></div>
+      <div><dt>Period</dt><dd>January – June 2026, internship</dd></div>
+      <div><dt>Role</dt><dd>Design intern</dd></div>
+    </dl>
+  </section>
+
+  <div class="wdw-logo g"><div class="wdw-logo-in" id="wdwLogo"><img src="img/wdw-logo.webp" width="969" height="528" alt="WDW Creative Studio logotype"></div></div>
+
+  <section class="info g" aria-labelledby="st">
+    <h2 id="st">The studio</h2>
+    <div class="prose">
+      <p>A Stockholm branding agency for lifestyle brands.</p>
+      <p>Two of my bigger projects there have their own pages: <a href="yayyay.html">YAY YAY</a> and <a href="staropramen.html">Staropramen</a>. This page collects the rest.</p>
+    </div>
+  </section>
+
+  <section class="info g" aria-labelledby="wd">
+    <h2 id="wd">What I did</h2>
+    <div class="prose">
+      <p>Sketches, visual research, ideas for campaigns and brand activations, and presentations. The designers and project leads took most of the work to its final form.</p>
+      <p>I also ran user tests on WDW’s own website and presented UX improvements to the team. Some of them were built.</p>
+    </div>
+    <ul class="wdw-chips" aria-label="Skills">
+      <li class="rv" style="--d:0s">Graphic design</li>
+      <li class="rv" style="--d:.05s">Sketching</li>
+      <li class="rv" style="--d:.1s">Visual research</li>
+      <li class="rv" style="--d:.15s">Ideation</li>
+      <li class="rv" style="--d:.2s">Campaigns</li>
+      <li class="rv" style="--d:.25s">Brand activations</li>
+      <li class="rv" style="--d:.3s">Presentations</li>
+      <li class="rv" style="--d:.35s">User testing</li>
+    </ul>
+  </section>
+
+  <section class="info g" aria-labelledby="tl" style="border-bottom:0">
+    <h2 id="tl">Tools I used</h2>
+    <ul class="wdw-chips tools" aria-label="Tools">
+      <li class="rv" style="--d:0s">Illustrator</li>
+      <li class="rv" style="--d:.06s">InDesign</li>
+      <li class="rv" style="--d:.12s">Photoshop</li>
+      <li class="rv" style="--d:.18s">Premiere Pro</li>
+      <li class="rv" style="--d:.24s">Gemini</li>
+    </ul>
+  </section>
+
+  <section class="g" aria-labelledby="mx">
+    <div class="wg-head">
+      <h2 id="mx">A mix of projects</h2>
+    </div>
+    <div class="collage" id="collage">
+      <section class="cl cl-leo" aria-label="LeoVegas">
+        <div class="cl-stage" style="--ar:1.25;--arm:1.2">
+          <span class="scrap " aria-hidden="true" style="--x:56%;--y:2%;--w:38%;--h:30%;--r:4deg"></span>
+          <figure class="pc ani " data-d="1" style="--x:3%;--y:7%;--w:68%;--r:-3deg;--z:2"><div class="fr"><img src="img/wdw-leovegas-gold.jpg" width="1800" height="1012" loading="lazy" alt="LeoVegas Mobile Gaming Group logo, a gold lion head above the wordmark, on a dark gradient fading into orange"><span class="cap">New logo</span></div></figure>
+          <figure class="pc ani " data-d="1.4" style="--x:35%;--y:44%;--w:61%;--r:4deg;--z:3"><div class="fr"><img src="img/wdw-leovegas-before-after.jpg" width="1358" height="762" loading="lazy" alt="Old LeoVegas logo on orange next to the new gold lion logo on a dark background"><span class="cap">Before and after</span></div></figure>
+          <span class="stk ani" data-d="1.6" aria-hidden="true" style="--x:0%;--y:0%;--r:-4deg;--bg:#d23b2c;--fg:#fbf6ea">LeoVegas</span>
+        </div>
+      </section>
+
+      <section class="cl cl-har" aria-label="Hårologi">
+        <div class="cl-stage" style="--ar:.95;--arm:1.7">
+          <span class="scrap " aria-hidden="true" style="--x:8%;--y:14%;--w:84%;--h:62%;--xm:38%;--ym:12%;--wm:58%;--r:-3deg"></span>
+          <figure class="pc ani cut" data-d="1.2" style="--x:10%;--y:14%;--w:80%;--r:2deg;--z:2;--xm:42%;--ym:6%;--wm:54%"><div class="fr"><img src="img/wdw-harologi.webp" width="492" height="437" loading="lazy" alt="Hårologi Rebuild shampoo, conditioner and cure in brown and dark green bottles with the new dark green labels"></div></figure>
+          <span class="stk ani" data-d="1.6" aria-hidden="true" style="--x:38%;--y:2%;--xm:6%;--ym:34%;--r:3deg;--bg:#1f3d2e;--fg:#fbf6ea">Hårologi</span>
+        </div>
+      </section>
+
+      <section class="cl cl-bis" aria-label="Bisou">
+        <div class="cl-stage" style="--ar:1.9;--arm:1.02">
+          <span class="scrap dark" aria-hidden="true" style="--x:70%;--y:58%;--w:22%;--h:36%;--xm:70%;--ym:40%;--wm:28%;--r:6deg"></span>
+          <figure class="pc ani " data-d="0.9" style="--x:1%;--y:4%;--w:37%;--r:-3deg;--z:2;--xm:1%;--ym:0%;--wm:62%"><div class="fr"><img src="img/wdw-bisou-moodboard.jpg" width="2006" height="1124" loading="lazy" alt="Bisou moodboard: an old wooden apothecary with glass cabinets, an ornate wine shop window, vintage potion labels, a pink door hanger, a burgundy rhode phone case and burgundy boxes with gold foil"><span class="cap">Moodboard</span></div></figure>
+          <figure class="pc ani " data-d="1.3" style="--x:33%;--y:13%;--w:35%;--r:2.5deg;--z:3;--xm:36%;--ym:16%;--wm:62%"><div class="fr"><img src="img/wdw-bisou-identity.jpg" width="2006" height="1124" loading="lazy" alt="Bisou identity explorations: a colour palette from light grey to burgundy, label frame shapes, and four square layouts with a vertical bisou wordmark and a lip shape on brown and burgundy"><span class="cap">Colours and label shapes</span></div></figure>
+          <figure class="pc ani t-corner" data-d="1" style="--x:63%;--y:2%;--w:35%;--r:-2deg;--z:2;--xm:3%;--ym:34%;--wm:62%"><div class="fr"><img src="img/wdw-bisou-dark.jpg" width="2006" height="1122" loading="lazy" alt="Burgundy Bisou peptide lip balm tube next to its flat label design with a large vertical pink bisou wordmark"><span class="cap">Concept, burgundy</span></div></figure>
+          <figure class="pc ani " data-d="1.5" style="--x:39%;--y:54%;--w:35%;--r:3deg;--z:4;--xm:36%;--ym:51%;--wm:62%"><div class="fr"><img src="img/wdw-bisou-pink.jpg" width="2008" height="1124" loading="lazy" alt="Two pink Bisou peptide lip balm tubes next to the flat label design: the bisou wordmark, a small lip icon and a dark arched label reading French soul. Korean science."><span class="cap">Concept, pink</span></div></figure>
+          <span class="stk ani" data-d="1.6" aria-hidden="true" style="--x:78%;--y:62%;--xm:66%;--ym:1%;--r:-5deg;--bg:#f3c9c9;--fg:#4a0d12">Bisou</span>
+        </div>
+      </section>
+
+      <section class="cl cl-way" aria-label="Waynes Coffee">
+        <div class="cl-stage" style="--ar:.95;--arm:.95">
+          <figure class="pc ani " data-d="1" style="--x:2%;--y:6%;--w:86%;--r:-2deg;--z:2"><div class="fr"><img src="img/wdw-waynes.jpg" width="1800" height="907" loading="lazy" alt="Waynes Coffee identity: blue and cream wordmarks, a colour palette, a wavy blue pattern, a round Made in Sweden badge and a sweatshirt with the line The only thing better than coffee"><span class="cap">Final identity</span></div></figure>
+          <figure class="pc ani t-blue" data-d="1.5" style="--x:54%;--y:38%;--w:40%;--r:5deg;--z:3"><div class="fr"><img src="img/wdw-waynes-sketch.jpg" width="814" height="1126" loading="lazy" alt="Pattern sketch of coffee beans in navy blue: filled beans on white above, and white outlined beans on navy below"></div></figure>
+          <span class="stk ani" data-d="1.6" aria-hidden="true" style="--x:4%;--y:0%;--r:-3deg;--bg:#1d2f8a;--fg:#fbf6ea">Waynes</span>
+        </div>
+      </section>
+
+      <section class="cl cl-sto" aria-label="The Stonewall Inn IPA">
+        <div class="cl-stage" style="--ar:1;--arm:1.45">
+          <span class="scrap blue" aria-hidden="true" style="--x:2%;--y:46%;--w:30%;--h:36%;--ym:20%;--r:-5deg"></span>
+          <figure class="pc ani " data-d="1" style="--x:5%;--y:9%;--w:44%;--r:-4deg;--z:2;--ym:-6%"><div class="fr"><img src="img/wdw-stonewall-pride.jpg" width="1100" height="1452" loading="lazy" alt="Print ad: The official beer of the Stonewall Inn, with a rainbow-striped alcohol-free Stonewall Inn session IPA can and a glass of beer"><span class="cap">Print ad</span></div></figure>
+          <figure class="pc ani " data-d="1.4" style="--x:49%;--y:22%;--w:44%;--r:3deg;--z:3;--ym:2%"><div class="fr"><img src="img/wdw-stonewall-proud.jpg" width="1100" height="1450" loading="lazy" alt="Print ad: This is Brooklyn. Smooth. Fresh. Proud. A Stonewall Inn alcohol-free IPA can and a glass of beer on purple with rainbow stripes"><span class="cap">Print ad</span></div></figure>
+          <span class="stk ani" data-d="1.6" aria-hidden="true" style="--x:28%;--y:0%;--xm:50%;--ym:-14%;--r:3deg;--bg:#f5efe0;--fg:#1b1a18">Stonewall Inn</span>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <section class="info g" aria-labelledby="lr" style="border-bottom:0">
+    <h2 id="lr">What I learned</h2>
+    <div class="prose">
+      <p>How a studio takes an idea from brainstorm to client presentation, and how to adapt to very different brands.</p>
+    </div>
+  </section>
+
+  <div class="g next"><a href="index.html#work">Back to selected work</a><a href="yayyay.html">Next: YAY YAY</a></div>
+</main>
+
+<footer class="site-foot" id="contact">
+  <div class="g sf-clean">
+    <p class="sf-still">Still here?</p>
+    <h2 class="sf-big">Work with me.</h2>
+    <p class="sf-links"><a href="mailto:a.nabilnassor@gmail.com">Email</a><a href="https://www.linkedin.com/in/nabil-nassor-884708237/" target="_blank" rel="noopener">LinkedIn</a></p>
+  </div>
+  <div class="g sf-bot">
+    <span>© 2026 Nabil Nassor</span>
+    <a href="#top" class="sf-up" id="sfUp">Back to top <svg viewBox="0 0 10 12" width="9" height="11" aria-hidden="true"><path d="M5 11V1M1 5l4-4 4 4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  </div>
+</footer>
+<script src="main.js"></script>
+<script src="contact.js"></script>
+<script src="project.js"></script>
+<script src="wdw-collage.js"></script>
+</body>
+</html>
