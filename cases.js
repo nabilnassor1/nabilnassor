@@ -28,3 +28,26 @@
   window.addEventListener('scroll',kick,{passive:true});window.addEventListener('resize',kick);window.addEventListener('load',kick);
   frame();
 })();
+
+/* folder shape: each card's outline includes its number tab, with soft curves where the tab meets the card */
+(function(){
+  var cs=[].slice.call(document.querySelectorAll('.case'));if(!cs.length||!window.CSS||!CSS.supports('clip-path','path("M0 0")'))return;
+  function shape(c){
+    var a=c.querySelector('.case-in'),tab=c.querySelector('.case-tab');if(!a||!tab)return;
+    var w=a.offsetWidth,H=a.offsetHeight,t=parseFloat(getComputedStyle(c).paddingTop)||0;
+    if(!w||!H||!t)return;
+    var r=14,tr=10,f=Math.min(10,t-tr),x0=tab.offsetLeft,tw=tab.offsetWidth,x1=x0+tw;
+    var d='M0 '+(t+r)+'A'+r+' '+r+' 0 0 1 '+r+' '+t+
+      'H'+(x0-f)+'A'+f+' '+f+' 0 0 0 '+x0+' '+(t-f)+
+      'V'+tr+'A'+tr+' '+tr+' 0 0 1 '+(x0+tr)+' 0'+
+      'H'+(x1-tr)+'A'+tr+' '+tr+' 0 0 1 '+x1+' '+tr+
+      'V'+(t-f)+'A'+f+' '+f+' 0 0 0 '+(x1+f)+' '+t+
+      'H'+(w-r)+'A'+r+' '+r+' 0 0 1 '+w+' '+(t+r)+
+      'V'+(H-r)+'A'+r+' '+r+' 0 0 1 '+(w-r)+' '+H+
+      'H'+r+'A'+r+' '+r+' 0 0 1 0 '+(H-r)+'Z';
+    a.style.clipPath='path("'+d+'")';
+  }
+  function all(){cs.forEach(shape)}
+  all();window.addEventListener('load',all);
+  if('ResizeObserver' in window){var ro=new ResizeObserver(all);cs.forEach(function(c){ro.observe(c)})}else window.addEventListener('resize',all);
+})();

@@ -127,7 +127,7 @@
       photo.style.setProperty('--s',(1-(m?.36:.56)*e).toFixed(4));
       photo.style.setProperty('--r',(-(m?6:7)*e).toFixed(2)+'deg');
       photo.style.setProperty('--y',(-(m?.04:.12)*H*e).toFixed(1)+'px');
-      copy.classList.toggle('live',cur>.4);copy.style.setProperty('--c',Math.max(0,Math.min(1,(cur-.3)/.3)).toFixed(3));
+      if(copy){copy.classList.toggle('live',cur>.4);copy.style.setProperty('--c',Math.max(0,Math.min(1,(cur-.3)/.3)).toFixed(3))}
     };
     var tick=function(){tgt=target();cur+=(tgt-cur)*.14;if(Math.abs(tgt-cur)<.0005)cur=tgt;paint();raf=(cur!==tgt)?requestAnimationFrame(tick):0};
     var kick=function(){if(!raf)raf=requestAnimationFrame(tick)};
@@ -264,9 +264,6 @@
       '<svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>'+
       '<svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>';
     document.body.appendChild(bar);
-    /* phones: a copy of the menu lives inside the footer as a stack of buttons, so it scrolls natively with it */
-    var ftEl=document.querySelector('.site-foot');
-    if(ftEl){var fn=document.createElement('nav');fn.className='sf-nav';fn.setAttribute('aria-label','Footer menu');fn.innerHTML=bar.innerHTML;ftEl.insertBefore(fn,ftEl.firstChild)}
     var tbs=[].slice.call(document.querySelectorAll('.theme-btn'));
     var sync=function(){var d=root.getAttribute('data-theme')==='dark';tbs.forEach(function(tb){tb.setAttribute('aria-pressed',d?'true':'false');tb.setAttribute('aria-label',d?'Day mode':'Night mode')})};
     sync();
@@ -285,9 +282,6 @@
       if(d>0){acc=Math.max(0,acc)+d}else if(d<0){acc=Math.min(0,acc)+d}
       if(y<60||acc<-24)bar.classList.remove('mini');else if(acc>24)bar.classList.add('mini');
       if(phone.matches){
-        /* once the footer's own menu is on screen, the floating bar fades away (and back when scrolling up) */
-        var ft=document.querySelector('.site-foot'),ftTop=ft?ft.getBoundingClientRect().top:1e9;
-        var hid=ftTop<window.innerHeight-60;bar.classList.toggle('hide',hid);if(ft)ft.classList.toggle('nav-in',hid);
         bar.classList.toggle('on-dark',root.getAttribute('data-theme')!=='dark'&&darkUnder());
       }
     };

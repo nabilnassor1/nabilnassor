@@ -391,7 +391,7 @@ html.has-cur,html.has-cur *{cursor:none!important}
 .cases{--top:calc(64px + env(safe-area-inset-top,0px) + 8px);position:relative;margin-inline:calc(-1*var(--gutter) + 8px)}
 .case{position:sticky;top:var(--top);height:calc(100svh - var(--top) - 12px);margin-bottom:12px;--e:1;--cv:0}
 .case-in{position:relative;display:block;height:100%;border-radius:14px;overflow:hidden;color:#fff;text-decoration:none;background:#1c1b19;
-  transform:scale(calc(1 - var(--cv)*.07)) translateY(calc(var(--cv)*-2%));transform-origin:50% 0;will-change:transform}
+  transform:none}
 .case-in::after{content:"";position:absolute;inset:0;background:#000;opacity:calc(var(--cv)*.55);pointer-events:none;z-index:4}
 .case-in img{position:absolute;inset:-6% 0;width:100%;height:112%;object-fit:cover;
   transform:translate3d(0,calc((1 - var(--e))*5%),0) scale(calc(1.14 - var(--e)*.12));will-change:transform}
@@ -665,3 +665,129 @@ body::before{display:none}
   .site-foot.nav-in .sf-nav>*:nth-child(3){transition-delay:.12s}
 }
 @media (prefers-reduced-motion:reduce){.sf-nav>*{opacity:1!important;transform:none!important;transition:none}}
+
+/* no separate footer menu: the bottom bar stays visible everywhere */
+.sf-nav{display:none!important}
+@media (max-width:820px){.site-foot .sf-bot{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}}
+/* compact footer + clear back-to-top */
+.sf-clean{padding-block:clamp(64px,8vw,120px) clamp(40px,5vw,72px)}
+.sf-big{margin-top:clamp(14px,2vw,28px);font-size:clamp(2.6rem,9vw,11rem)}
+.sf-links{margin-top:clamp(20px,2.6vw,36px)}
+.sf-bot{padding-block:16px 20px}
+.sf-up{gap:10px;min-height:48px;padding:0 22px;border:1.5px solid rgba(239,235,227,.55);border-radius:999px;font-size:1.05rem;font-weight:500;color:#efebe3;transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease)}
+.sf-up svg{width:13px;height:16px;transition:transform .35s var(--ease)}
+.sf-up:hover,.sf-up:focus-visible{background:#efebe3;color:#161514;border-color:#efebe3}
+.sf-up:hover svg{transform:translateY(-3px)}
+@media (max-width:820px){
+  .sf-clean{padding-block:64px 40px}
+  .sf-big{font-size:clamp(2.2rem,11vw,3.6rem)}
+  .sf-bot{flex-direction:column-reverse;align-items:stretch;text-align:center;gap:14px;padding-top:18px}
+  .sf-up{justify-content:center;min-height:52px;font-size:1.1rem}
+}
+@media (min-width:821px){.sf-bot>span{padding-left:48px}}
+/* round back-to-top: icon only, label kept for screen readers */
+.sf-up,.sf-up:hover,.sf-up:focus-visible{justify-content:center;gap:0;width:48px;height:48px;min-height:0;padding:0;border-radius:50%;font-size:0;line-height:0}
+.sf-up svg{width:14px;height:17px}
+@media (max-width:820px){
+  .sf-bot{flex-direction:row;align-items:center;text-align:left;gap:12px}
+  .sf-up{min-height:0;font-size:0}
+}
+/* shorter selected-work cards */
+.case{height:min(calc(100svh - var(--top) - 12px),max(420px,76svh))}
+@media (max-width:820px){.case{height:max(380px,64svh)}}
+/* phones: name and photo sit higher so the scroll arrow shows above the menu bar */
+@media (max-width:820px) and (max-aspect-ratio:1/1){
+  .mega.hero-name{top:0}
+  .hero-photo{top:44%;height:59%}
+  .scroll-cue{bottom:calc(146px + env(safe-area-inset-top,0px) + env(safe-area-inset-bottom,0px))}
+}
+/* pages-explored border, drawn on the edge of the menu */
+.mprog{position:absolute;left:0;top:0;pointer-events:none;overflow:visible;z-index:3}
+.mprog path{fill:none;stroke-width:2}
+.mprog-track{stroke:color-mix(in srgb,var(--paper) 16%,transparent)}
+.mnav.on-dark .mprog-track{stroke:rgba(37,37,35,.14)}
+.mprog-bar{stroke:var(--pc,#e26c56);stroke-linecap:round;transition:opacity .4s ease}
+.mnav.mprog-cheer{animation:mpcheer 1.6s var(--ease)}
+@keyframes mpcheer{0%{box-shadow:0 0 0 0 hsl(146 52% 44% / .55)}100%{box-shadow:0 0 0 16px hsl(146 52% 44% / 0)}}
+@media (min-width:821px){.mnav.mprog-cheer{border-radius:50%}}
+.mprog-shine{stroke:#fff;stroke-width:2;stroke-linecap:round;opacity:0;filter:drop-shadow(0 0 4px rgba(255,255,255,.9))}
+.mprog-confetti{position:fixed;inset:0;pointer-events:none;z-index:270;overflow:hidden}
+.mprog-confetti i{position:absolute;display:block}
+.mprog-confetti .dot{width:9px;height:9px;border-radius:50%}
+.mprog-confetti .bit{width:5px;height:14px;border-radius:2px}
+.mprog-confetti .ring{width:11px;height:11px;border-radius:50%;border:2.5px solid;box-sizing:border-box}
+.mnav.mprog-gone .mprog{opacity:0}
+.mnav.mprog-fade .mprog{transition:opacity 1s ease}
+.mprog-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+@media (prefers-reduced-motion:reduce){.mprog-bar{transition:none}.mnav.mprog-cheer{animation:none}}
+/* footer glow: two warm lights that wander over the whole footer, up to "Still here?" */
+.site-foot::before{left:50%;bottom:-45%;width:85%;height:165%;border-radius:50%;background:radial-gradient(50% 50% at 50% 50%,rgba(226,108,86,.5),rgba(150,46,52,.24) 45%,rgba(22,21,20,0) 70%);filter:blur(12px);animation:sfdrift 7s ease-in-out infinite alternate}
+.site-foot::after{content:"";position:absolute;z-index:-1;left:50%;bottom:-40%;width:70%;height:150%;border-radius:50%;background:radial-gradient(50% 50% at 50% 50%,rgba(232,128,60,.36),rgba(229,51,42,.15) 50%,rgba(22,21,20,0) 70%);filter:blur(14px);opacity:var(--glow,.85);animation:sfdrift2 9s ease-in-out infinite alternate;pointer-events:none}
+@keyframes sfdrift{
+  0%{transform:translateX(-50%) translate(-38%,12%) scale(.95)}
+  35%{transform:translateX(-50%) translate(-5%,-10%) scale(1.1,1.05)}
+  70%{transform:translateX(-50%) translate(28%,4%) scale(1,1.12)}
+  100%{transform:translateX(-50%) translate(40%,-6%) scale(1.05)}
+}
+@keyframes sfdrift2{
+  0%{transform:translateX(-50%) translate(45%,-8%) scale(1)}
+  40%{transform:translateX(-50%) translate(5%,10%) scale(1.15)}
+  75%{transform:translateX(-50%) translate(-30%,-12%) scale(.95,1.1)}
+  100%{transform:translateX(-50%) translate(-48%,6%) scale(1.05)}
+}
+@media (max-width:820px){.site-foot::before{width:150%;height:150%;bottom:-18%}.site-foot::after{width:130%;height:140%;bottom:-12%}}
+@media (prefers-reduced-motion:reduce){.site-foot::before,.site-foot::after{animation:none}}
+.sf-still{color:rgba(239,235,227,.8)}
+/* footer fades in from the page instead of starting with a hard line */
+.site-foot{--sf-mask:linear-gradient(to bottom,transparent 0,rgba(0,0,0,.06) calc(var(--sf-fade,140px)*.2),rgba(0,0,0,.25) calc(var(--sf-fade,140px)*.4),rgba(0,0,0,.55) calc(var(--sf-fade,140px)*.6),rgba(0,0,0,.84) calc(var(--sf-fade,140px)*.8),#000 var(--sf-fade,140px));-webkit-mask-image:var(--sf-mask);mask-image:var(--sf-mask)}
+.sf-clean{padding-top:calc(var(--sf-fade,140px) + clamp(8px,2vw,32px))}
+@media (max-width:820px){.site-foot{--sf-fade:120px}.sf-clean{padding-top:calc(var(--sf-fade) + 12px)}}
+/* project number tabs: each card carries a tab on its top edge, placed left to right.
+   As the cards stack, the tabs line up along the top, and leave together with the cards. */
+.cases{--tab-h:38px;--tab-w:62px;--tab-gap:6px}
+.case{padding-top:var(--tab-h)}
+.case-in{height:100%}
+.case-tab{position:absolute;top:0;left:calc(14px + var(--k,0)*(var(--tab-w) + var(--tab-gap)));width:var(--tab-w);height:var(--tab-h);display:grid;place-items:center;border-radius:9px 9px 0 0;background:var(--ink);color:var(--paper);font-size:.95rem;font-weight:500;letter-spacing:.02em;font-variant-numeric:tabular-nums;z-index:1}
+.case:nth-child(2) .case-tab{--k:1}.case:nth-child(3) .case-tab{--k:2}.case:nth-child(4) .case-tab{--k:3}
+.case-no{display:none}
+@media (max-width:820px){.cases{--tab-h:32px;--tab-w:50px;--tab-gap:5px}.case-tab{font-size:.85rem;border-radius:8px 8px 0 0}}
+.cases{display:flow-root}
+/* tabs grow out of their card: same colour as the card's top edge, curved where they meet it,
+   and they darken together with the card when the next one slides over */
+.case-tab{--tl:calc(24px + var(--k,0)*(var(--tab-w) + var(--tab-gap) + 12px));left:var(--tl);top:auto;bottom:calc(100% - var(--tab-h) - 1px);height:calc(var(--tab-h) + 1px);padding-bottom:1px;background:var(--tc,#1c1b19);color:var(--tt,#fff);border-radius:10px 10px 0 0;
+  filter:brightness(calc(1 - var(--cv)*.35))}
+.case-tab::before,.case-tab::after{content:"";position:absolute;bottom:0;width:10px;height:10px;pointer-events:none}
+.case-tab::before{left:-10px;background:radial-gradient(circle at 0 0,transparent 9.5px,var(--tc,#1c1b19) 10px)}
+.case-tab::after{right:-10px;background:radial-gradient(circle at 100% 0,transparent 9.5px,var(--tc,#1c1b19) 10px)}
+.case:nth-child(1) .case-tab{--tc:#56514a}
+.case:nth-child(2) .case-tab{--tc:#1a0f08}
+.case:nth-child(3) .case-tab{--tc:#ebebeb;--tt:#252523}
+.case:nth-child(4) .case-tab{--tc:#141e1c}
+@media (max-width:820px){
+  .case:nth-child(1) .case-tab{--tc:#504c47}
+  .case:nth-child(2) .case-tab{--tc:#291a0e}
+  .case:nth-child(3) .case-tab{--tc:#d0d0d0}
+  .case-tab{--tl:calc(24px + var(--k,0)*(var(--tab-w) + var(--tab-gap) + 10px))}
+}
+html[data-theme=dark] .case:nth-child(3) .case-tab{--tt:#252523}
+@media (prefers-reduced-motion:reduce){.case-tab{filter:none}}
+/* tighter stack, slightly taller cards */
+.case{margin-bottom:8px;height:min(calc(100svh - var(--top) - 12px),max(440px,82svh))}
+@media (max-width:820px){.case{margin-bottom:6px;height:max(400px,71svh)}}
+/* phones: less empty space under the footer, just enough to clear the menu bar */
+@media (max-width:820px){
+  .site-foot{padding-bottom:0}
+  .site-foot .sf-bot{padding-top:12px;padding-bottom:calc(66px + env(safe-area-inset-bottom,0px))}
+}
+/* about: the photo sits higher, tucked under the big title, which shows through where they overlap */
+.about-top{background:var(--paper);isolation:isolate}
+.about-top .mega{position:relative;z-index:2;color:#fff;mix-blend-mode:difference;pointer-events:none}
+.about-top .about-hero{position:relative;z-index:1;margin-top:calc(clamp(4.2rem,19vw,22rem)*-.4);padding-top:0}
+/* the tab is part of the card itself: the card's picture continues up into the tab,
+   cut out as one folder shape (the outline is drawn by cases.js) */
+.case-in{margin-top:calc(-1*var(--tab-h));height:calc(100% + var(--tab-h));border-radius:0;clip-path:inset(var(--tab-h) 0 0 0 round 14px)}
+.case-txt{top:calc(clamp(22px,3.4vw,52px) + var(--tab-h))}
+.case-light .case-in{box-shadow:none}
+.case-tab,.case:nth-child(n) .case-tab{background:none;z-index:5;pointer-events:none;text-shadow:0 1px 8px rgba(0,0,0,.25)}
+.case-tab::before,.case-tab::after{content:none}
+.case:nth-child(3) .case-tab{text-shadow:none}
